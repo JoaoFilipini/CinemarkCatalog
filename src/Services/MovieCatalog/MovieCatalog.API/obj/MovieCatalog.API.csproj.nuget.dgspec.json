@@ -1,0 +1,326 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.API\\MovieCatalog.API.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.API\\MovieCatalog.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.API\\MovieCatalog.API.csproj",
+        "projectName": "MovieCatalog.API",
+        "projectPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.API\\MovieCatalog.API.csproj",
+        "packagesPath": "C:\\Users\\joao_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.API\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\NuGet.Config",
+          "C:\\Users\\joao_\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Application\\MovieCatalog.Application.csproj": {
+                "projectPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Application\\MovieCatalog.Application.csproj"
+              },
+              "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Infra\\MovieCatalog.Infra.csproj": {
+                "projectPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Infra\\MovieCatalog.Infra.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[9.0.20, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[10.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.318/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Application\\MovieCatalog.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Application\\MovieCatalog.Application.csproj",
+        "projectName": "MovieCatalog.Application",
+        "projectPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Application\\MovieCatalog.Application.csproj",
+        "packagesPath": "C:\\Users\\joao_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\NuGet.Config",
+          "C:\\Users\\joao_\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Domain\\MovieCatalog.Domain.csproj": {
+                "projectPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Domain\\MovieCatalog.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[10.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.318/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Domain\\MovieCatalog.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Domain\\MovieCatalog.Domain.csproj",
+        "projectName": "MovieCatalog.Domain",
+        "projectPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Domain\\MovieCatalog.Domain.csproj",
+        "packagesPath": "C:\\Users\\joao_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\NuGet.Config",
+          "C:\\Users\\joao_\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.318/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Infra\\MovieCatalog.Infra.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Infra\\MovieCatalog.Infra.csproj",
+        "projectName": "MovieCatalog.Infra",
+        "projectPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Infra\\MovieCatalog.Infra.csproj",
+        "packagesPath": "C:\\Users\\joao_\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Infra\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\NuGet.Config",
+          "C:\\Users\\joao_\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Application\\MovieCatalog.Application.csproj": {
+                "projectPath": "C:\\Users\\joao_\\OneDrive\\Documentos\\TesteCinemark\\CinemarkCatalog\\src\\Services\\MovieCatalog\\MovieCatalog.Application\\MovieCatalog.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[4.0.100.14, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[3.11.2, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[3.2.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.318/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

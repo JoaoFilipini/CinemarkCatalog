@@ -1,0 +1,22 @@
+## Build and Binaries
+[Bb]in/
+[Ob]j/
+out/
+
+## User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+## IDEs (Visual Studio, VS Code, Rider)
+.vs/
+.vscode/
+.idea/
+
+## OS generated files
+.DS_Store
+Thumbs.db
+
+## Logs
+*.log
