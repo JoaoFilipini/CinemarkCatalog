@@ -36,7 +36,9 @@ builder.Services.AddScoped<IFilmRepository, FilmRepository>();
 
 // Infraestrutura - Redis Cache
 var redisConn = builder.Configuration["Redis:ConnectionString"] ?? "localhost:6379";
-builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConn));
+var redisOptions = ConfigurationOptions.Parse(redisConn);
+redisOptions.AbortOnConnectFail = false;
+builder.Services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(redisOptions));
 builder.Services.AddScoped<ICacheService, RedisCacheService>();
 
 // Infraestrutura - AWS SQS / LocalStack
