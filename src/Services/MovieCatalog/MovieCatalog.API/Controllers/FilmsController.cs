@@ -31,9 +31,6 @@ public class FilmsController : ControllerBase
     public async Task<IActionResult> GetById(string id, CancellationToken cancellationToken)
     {
         var result = await _filmAppService.GetByIdAsync(id, cancellationToken);
-        if (result is null)
-            return NotFound(new { Message = $"Filme com ID '{id}' não foi encontrado." });
-
         return Ok(result);
     }
 

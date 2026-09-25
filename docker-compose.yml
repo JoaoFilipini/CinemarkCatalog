@@ -16,6 +16,11 @@ services:
   localstack:
     image: localstack/localstack:3.8
     container_name: cinemark-localstack
+    healthcheck:
+      test: ["CMD-SHELL", "awslocal sqs get-queue-url --queue-name film-events"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
     ports:
       - "4566:4566"
     environment:
@@ -43,7 +48,8 @@ services:
     depends_on:
       - mongodb
       - redis
-      - localstack
+      - localstack:
+          condition: service_healthy
 
   notification-consumer:
     image: notification-consumer:net9
@@ -51,12 +57,15 @@ services:
       context: .
       dockerfile: src/Services/Notifications/NotificationConsumer.Service/Dockerfile
     container_name: cinemark-notification-worker
+    ports:
+      - "8081:8080"
     environment:
       - AWS__ServiceUrl=http://localstack:4566
       - AWS__Region=us-east-1
       - AWS__SqsQueueUrl=http://localstack:4566/000000000000/film-events
     depends_on:
-      - localstack
+      - localstack:
+          condition: service_healthy
 
 volumes:
   mongodb_data:

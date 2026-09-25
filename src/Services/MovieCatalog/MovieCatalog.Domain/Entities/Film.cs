@@ -5,8 +5,8 @@ namespace MovieCatalog.Domain.Entities;
 public class Film : BaseEntity
 {
     public string Title { get; private set; } = default!;
-    public string Synopsis { get; private set; } = default!;
-    public Genre Genre { get; private set; } = default!;
+    public string? Synopsis { get; private set; } 
+    public Genre Genre { get; private set; } 
     public DateTime ReleaseDate { get; private set; }
     public int DurationMinutes { get; private set; }
     public decimal Rating { get; private set; }
@@ -14,7 +14,7 @@ public class Film : BaseEntity
 
     public Film() { }
 
-    public Film(string title, string synopsis, Genre genre, DateTime releaseDate, int durationMinutes, decimal rating, bool isActive)
+    public Film(string title, string? synopsis, Genre genre, DateTime releaseDate, int durationMinutes, decimal rating, bool isActive)
     {
         Title = title;
         Synopsis = synopsis;
@@ -26,7 +26,7 @@ public class Film : BaseEntity
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void Update(string title, string synopsis, Genre genre, DateTime releaseDate, int durationMinutes, decimal rating, bool isActive)
+    public void Update(string title, string? synopsis, Genre genre, DateTime releaseDate, int durationMinutes, decimal rating, bool isActive)
     {
         Title = title;
         Synopsis = synopsis;

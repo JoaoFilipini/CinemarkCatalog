@@ -16,7 +16,6 @@ public class WorkerTests
     [Fact]
     public async Task Worker_ShouldReceiveAndDeleteMessageFromSQS()
     {
-        // Configuração em memória robusta
         var inMemorySettings = new Dictionary<string, string?>
         {
             {"AWS:SqsQueueUrl", "http://localhost:4566/000000000000/film-events"}
@@ -28,7 +27,7 @@ public class WorkerTests
 
         var message = new Message
         {
-            Body = "{\"Event\":\"FilmCreated\",\"Data\":{\"Id\":\"123\",\"Title\":\"Inception\"}}",
+            Body = "{\"EventId\":\"1\",\"FilmId\":\"123\",\"Title\":\"Inception\",\"EventType\":\"FilmCreated\",\"Timestamp\":\"2025-01-01T00:00:00Z\"}",
             ReceiptHandle = "handle-123"
         };
 
@@ -37,7 +36,6 @@ public class WorkerTests
             Messages = new List<Message> { message }
         };
 
-        // Suporte para chamadas via Request ou via parâmetros diretos
         _sqsClientMock
             .Setup(x => x.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(receiveResponse);
@@ -65,7 +63,6 @@ public class WorkerTests
         await worker.StopAsync(CancellationToken.None);
         await startTask;
 
-        // Verifica a remoção da mensagem na fila
         try
         {
             _sqsClientMock.Verify(

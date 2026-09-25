@@ -1,6 +1,9 @@
+using System.Text.Json.Serialization;
 using Amazon.SQS;
 using FluentValidation;
+using MovieCatalog.API.HostedServices;
 using MovieCatalog.API.Middlewares;
+using MovieCatalog.Application.Configurations;
 using MovieCatalog.Application.DTOs;
 using MovieCatalog.Application.Interfaces;
 using MovieCatalog.Application.Services;
@@ -16,32 +19,35 @@ using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do Serilog em formato JSON
-Log.Logger = new LoggerConfiguration()
+builder.Host.UseSerilog((ctx, cfg) => cfg
+    .ReadFrom.Configuration(ctx.Configuration)
     .Enrich.FromLogContext()
-    .WriteTo.Console(new JsonFormatter())
-    .CreateLogger();
+    .WriteTo.Console(new JsonFormatter()));
 
-builder.Host.UseSerilog();
-
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Infraestrutura - MongoDB
+// MongoDB
 var mongoConn = builder.Configuration["MongoDb:ConnectionString"] ?? "mongodb://localhost:27017";
 var mongoDbName = builder.Configuration["MongoDb:DatabaseName"] ?? "CinemarkCatalogDb";
 builder.Services.AddSingleton(new MongoDbContext(mongoConn, mongoDbName));
+builder.Services.AddSingleton<MongoIndexInitializer>();
+builder.Services.AddHostedService<MongoIndexHostedService>();
 builder.Services.AddScoped<IFilmRepository, FilmRepository>();
 
-// Infraestrutura - Redis Cache
-var redisConn = builder.Configuration["Redis:ConnectionString"] ?? "localhost:6379";
-var redisOptions = ConfigurationOptions.Parse(redisConn);
+// Redis
+var redisOptions = ConfigurationOptions.Parse(builder.Configuration["Redis:ConnectionString"] ?? "localhost:6379");
 redisOptions.AbortOnConnectFail = false;
+redisOptions.ConnectTimeout = 2000;
+redisOptions.SyncTimeout = 500;
+redisOptions.AsyncTimeout = 500;
 builder.Services.AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(redisOptions));
 builder.Services.AddScoped<ICacheService, RedisCacheService>();
+builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("Cache"));
 
-// Infraestrutura - AWS SQS / LocalStack
+// AWS SQS / LocalStack
 var awsOptions = builder.Configuration.GetSection("AWS");
 builder.Services.AddSingleton<IAmazonSQS>(_ =>
 {
@@ -54,7 +60,7 @@ builder.Services.AddSingleton<IAmazonSQS>(_ =>
 });
 builder.Services.AddScoped<IEventProducer, SqsEventProducer>();
 
-// Aplicação - FluentValidation e Services
+// Application
 builder.Services.AddScoped<IValidator<CreateFilmInput>, CreateFilmInputValidator>();
 builder.Services.AddScoped<IValidator<UpdateFilmInput>, UpdateFilmInputValidator>();
 builder.Services.AddScoped<IFilmAppService, FilmAppService>();

@@ -13,19 +13,16 @@ public class FilmRepository : MongoRepository<Film>, IFilmRepository
 
     public async Task<bool> ExistsByTitleAsync(string title, string? excludeId = null, CancellationToken cancellationToken = default)
     {
-        var filter = Builders<Film>.Filter.Eq(x => x.Title, title);
-        
-        if (!string.IsNullOrEmpty(excludeId))
-        {
-            var excludeFilter = Builders<Film>.Filter.Ne(x => x.Id, excludeId);
-            filter = Builders<Film>.Filter.And(filter, excludeFilter);
-        }
+        var filter = Builders<Film>.Filter.And(
+            Builders<Film>.Filter.Eq(x => x.Title, title),
+            Builders<Film>.Filter.Eq(x => x.IsDeleted, false));
 
-        var count = await _collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken);
-        return count > 0;
+        if (!string.IsNullOrEmpty(excludeId))
+            filter = Builders<Film>.Filter.And(filter, Builders<Film>.Filter.Ne(x => x.Id, excludeId));
+
+        return await _collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken) > 0;
     }
 
-// FilmRepository.cs
     public override async Task SoftDeleteAsync(string id, CancellationToken cancellationToken = default)
     {
         var update = Builders<Film>.Update

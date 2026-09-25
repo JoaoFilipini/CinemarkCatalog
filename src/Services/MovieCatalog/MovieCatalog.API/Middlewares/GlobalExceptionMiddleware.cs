@@ -1,11 +1,14 @@
 using System.Net;
 using System.Text.Json;
 using FluentValidation;
+using MovieCatalog.Domain.Exceptions;
 
 namespace MovieCatalog.API.Middlewares;
 
 public class GlobalExceptionMiddleware
 {
+    private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
+
     private readonly RequestDelegate _next;
     private readonly ILogger<GlobalExceptionMiddleware> _logger;
 
@@ -38,7 +41,7 @@ public class GlobalExceptionMiddleware
 
         switch (exception)
         {
-            case ValidationException valEx:
+            case BusinessRuleException valEx:
                 statusCode = HttpStatusCode.BadRequest;
                 response = new
                 {
@@ -81,6 +84,5 @@ public class GlobalExceptionMiddleware
         }
 
         context.Response.StatusCode = (int)statusCode;
-        return context.Response.WriteAsync(JsonSerializer.Serialize(response));
-    }
+        return context.Response.WriteAsync(JsonSerializer.Serialize(response, JsonOptions));    }
 }

@@ -6,7 +6,8 @@ namespace NotificationConsumer.Service;
 
 public class FilmEventPayload
 {
-    public string Id { get; set; } = string.Empty;
+    public string EventId { get; set; } = string.Empty;
+    public string FilmId { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string EventType { get; set; } = string.Empty;
     public DateTime Timestamp { get; set; }
@@ -17,6 +18,7 @@ public class Worker : BackgroundService
     private readonly IAmazonSQS _sqsClient;
     private readonly IConfiguration _configuration;
     private readonly ILogger<Worker> _logger;
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
     public Worker(IAmazonSQS sqsClient, IConfiguration configuration, ILogger<Worker> logger)
     {
@@ -67,25 +69,29 @@ public class Worker : BackgroundService
     {
         try
         {
-            var payload = JsonSerializer.Deserialize<FilmEventPayload>(message.Body, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var payload = JsonSerializer.Deserialize<FilmEventPayload>(message.Body, JsonOptions);
 
             if (payload != null)
             {
                 _logger.LogInformation(
-                    "Evento recebido com sucesso! Evento: {EventType} | FilmeID: {FilmId} | Título: {Title} | Timestamp: {Timestamp}",
-                    payload.EventType, payload.Id, payload.Title, payload.Timestamp
-                );
+                    "Evento recebido! Evento: {EventType} | FilmeID: {FilmId} | Título: {Title} | Timestamp: {Timestamp}",
+                    payload.EventType, payload.FilmId, payload.Title, payload.Timestamp);
             }
             else
             {
-                _logger.LogWarning("Mensagem SQS recebida mas não foi possível deserializar: {Body}", message.Body);
+                _logger.LogWarning("Mensagem SQS vazia ou nula: {Body}", message.Body);
             }
 
             await _sqsClient.DeleteMessageAsync(queueUrl, message.ReceiptHandle, cancellationToken);
         }
+        catch (JsonException ex)
+        {
+            _logger.LogError(ex, "Mensagem inválida descartada: {Body}", message.Body);
+            await _sqsClient.DeleteMessageAsync(queueUrl, message.ReceiptHandle, cancellationToken);
+        }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Falha ao deserializar ou deletar mensagem {ReceiptHandle}", message.ReceiptHandle);
+            _logger.LogError(ex, "Falha ao processar mensagem {ReceiptHandle}", message.ReceiptHandle);
         }
     }
 }
