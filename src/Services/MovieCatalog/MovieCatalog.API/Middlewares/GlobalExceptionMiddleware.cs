@@ -40,48 +40,48 @@ public class GlobalExceptionMiddleware
         object response;
 
         switch (exception)
-        {
-            case BusinessRuleException valEx:
-                statusCode = HttpStatusCode.BadRequest;
-                response = new
-                {
-                    Status = (int)statusCode,
-                    Error = "Falha de Validação",
-                    Errors = valEx.Errors.Select(e => new { e.PropertyName, e.ErrorMessage }),
-                    CorrelationId = correlationId
-                };
-                break;
+    {
+        case ValidationException valEx:
+            statusCode = HttpStatusCode.BadRequest;
+            response = new
+            {
+                Status = (int)statusCode,
+                Error = "Falha de Validação",
+                Errors = valEx.Errors.Select(e => new { e.PropertyName, e.ErrorMessage }),
+                CorrelationId = correlationId
+            };
+        break;
 
-            case KeyNotFoundException:
-                statusCode = HttpStatusCode.NotFound;
-                response = new
-                {
-                    Status = (int)statusCode,
-                    Error = exception.Message,
-                    CorrelationId = correlationId
-                };
-                break;
+        case KeyNotFoundException:
+            statusCode = HttpStatusCode.NotFound;
+            response = new
+            {
+                Status = (int)statusCode,
+                Error = exception.Message,
+                CorrelationId = correlationId
+            };
+        break;
 
-            case InvalidOperationException:
-                statusCode = HttpStatusCode.BadRequest;
-                response = new
-                {
-                    Status = (int)statusCode,
-                    Error = exception.Message,
-                    CorrelationId = correlationId
-                };
-                break;
+        case BusinessRuleException:
+            statusCode = HttpStatusCode.BadRequest;
+            response = new
+            {
+                Status = (int)statusCode,
+                Error = exception.Message,
+                CorrelationId = correlationId
+            };
+        break;
 
-            default:
-                statusCode = HttpStatusCode.InternalServerError;
-                response = new
-                {
-                    Status = (int)statusCode,
-                    Error = "Ocorreu um erro interno no servidor.",
-                    CorrelationId = correlationId
-                };
-                break;
-        }
+        default:
+            statusCode = HttpStatusCode.InternalServerError;
+            response = new
+            {
+                Status = (int)statusCode,
+                Error = "Ocorreu um erro interno no servidor.",
+                CorrelationId = correlationId
+            };
+        break;
+}
 
         context.Response.StatusCode = (int)statusCode;
         return context.Response.WriteAsync(JsonSerializer.Serialize(response, JsonOptions));    }
