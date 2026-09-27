@@ -46,10 +46,12 @@ services:
       - AWS__Region=us-east-1
       - AWS__SqsQueueUrl=http://localstack:4566/000000000000/film-events
     depends_on:
-      - mongodb
-      - redis
-      - localstack:
-          condition: service_healthy
+      mongodb:
+        condition: service_started
+      redis:
+        condition: service_started
+      localstack:
+        condition: service_healthy
 
   notification-consumer:
     image: notification-consumer:net9
@@ -64,8 +66,8 @@ services:
       - AWS__Region=us-east-1
       - AWS__SqsQueueUrl=http://localstack:4566/000000000000/film-events
     depends_on:
-      - localstack:
-          condition: service_healthy
+      localstack:
+        condition: service_healthy
 
 volumes:
   mongodb_data:
