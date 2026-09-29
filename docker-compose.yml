@@ -2,30 +2,28 @@ services:
   mongodb:
     image: mongo:7.0
     container_name: cinemark-mongodb
-    ports:
-      - "27017:27017"
+    network_mode: host
     volumes:
       - mongodb_data:/data/db
 
   redis:
     image: redis:7-alpine
     container_name: cinemark-redis
-    ports:
-      - "6379:6379"
+    network_mode: host
 
   localstack:
     image: localstack/localstack:3.8
     container_name: cinemark-localstack
+    network_mode: host
     healthcheck:
       test: ["CMD-SHELL", "awslocal sqs get-queue-url --queue-name film-events"]
       interval: 5s
       timeout: 5s
       retries: 15
-    ports:
-      - "4566:4566"
     environment:
       - AWS_DEFAULT_REGION=us-east-1
       - DEBUG=0
+      - GATEWAY_LISTEN=0.0.0.0:4566
     volumes:
       - "./scripts/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"
 
@@ -35,16 +33,16 @@ services:
       context: .
       dockerfile: src/Services/MovieCatalog/MovieCatalog.API/Dockerfile
     container_name: cinemark-movie-api
-    ports:
-      - "8080:8080"
+    network_mode: host
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - MongoDb__ConnectionString=mongodb://mongodb:27017
+      - ASPNETCORE_HTTP_PORTS=8080
+      - MongoDb__ConnectionString=mongodb://localhost:27017
       - MongoDb__DatabaseName=CinemarkCatalogDb
-      - Redis__ConnectionString=redis:6379
-      - AWS__ServiceUrl=http://localstack:4566
+      - Redis__ConnectionString=localhost:6379
+      - AWS__ServiceUrl=http://localhost:4566
       - AWS__Region=us-east-1
-      - AWS__SqsQueueUrl=http://localstack:4566/000000000000/film-events
+      - AWS__SqsQueueUrl=http://localhost:4566/000000000000/film-events
     depends_on:
       mongodb:
         condition: service_started
@@ -59,12 +57,12 @@ services:
       context: .
       dockerfile: src/Services/Notifications/NotificationConsumer.Service/Dockerfile
     container_name: cinemark-notification-worker
-    ports:
-      - "8081:8080"
+    network_mode: host
     environment:
-      - AWS__ServiceUrl=http://localstack:4566
+      - ASPNETCORE_HTTP_PORTS=8081
+      - AWS__ServiceUrl=http://localhost:4566
       - AWS__Region=us-east-1
-      - AWS__SqsQueueUrl=http://localstack:4566/000000000000/film-events
+      - AWS__SqsQueueUrl=http://localhost:4566/000000000000/film-events
     depends_on:
       localstack:
         condition: service_healthy
